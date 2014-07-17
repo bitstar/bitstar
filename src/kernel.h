@@ -8,11 +8,7 @@
 
 // MODIFIER_INTERVAL: time to elapse before new modifier is computed
 static const unsigned int MODIFIER_INTERVAL = 6 * 60 * 60;
-static const unsigned int MODIFIER_INTERVAL_NEW = 1* 60; // new modifier interval 1 minute
-
-
 extern unsigned int nModifierInterval;
-extern unsigned int nModifierIntervalNew;
 
 // MODIFIER_INTERVAL_RATIO:
 // ratio of group interval length between the last group and the first group

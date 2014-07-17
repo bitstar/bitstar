@@ -7,7 +7,6 @@
 #include "walletdb.h"
 #include "bitcoinrpc.h"
 #include "init.h"
-#include "util.h"
 #include "base58.h"
 
 using namespace json_spirit;
@@ -277,9 +276,6 @@ Value getaddressesbyaccount(const Array& params, bool fHelp)
     }
     return ret;
 }
-
-
-
 
 Value sendtoaddress(const Array& params, bool fHelp)
 {

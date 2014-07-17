@@ -11,7 +11,7 @@
 const std::string CLIENT_NAME("Bitstar");
 
 // Client version number
-#define CLIENT_VERSION_SUFFIX   "-adgr"
+#define CLIENT_VERSION_SUFFIX   "hi-021"
 
 
 // The following part of the code determines the CLIENT_BUILD variable.
@@ -37,7 +37,7 @@ const std::string CLIENT_NAME("Bitstar");
 #define GIT_ARCHIVE 1
 #ifdef GIT_ARCHIVE
 #    define GIT_COMMIT_ID ""
-#    define GIT_COMMIT_DATE "2014/07/18"
+#    define GIT_COMMIT_DATE "2014/06/13"
 #endif
 
 #define BUILD_DESC_FROM_COMMIT(maj,min,rev,build,commit) \

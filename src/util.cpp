@@ -203,14 +203,6 @@ static FILE* fileout = NULL;
 inline int OutputDebugStringF(const char* pszFormat, ...)
 {
     int ret = 0;
-
-    if ( GetBoolArg("-nolog", false)){
-        // disable logging
-        return ret;
-
-    }
-
-
     if (fPrintToConsole)
     {
         // print to console
