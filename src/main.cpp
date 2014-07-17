@@ -972,7 +972,7 @@ int64 GetProofOfStakeReward(int64 nCoinAge, unsigned int nBits, unsigned int nTi
 		nRewardCoinYear = MAX_MINT_PROOF_OF_STAKE / 10;
 
     int64 nSubsidy = nCoinAge * nRewardCoinYear / 365;
-	if (fDebug && GetBoolArg("-printcreation"))
+    if (fDebug && GetBoolArg("-printcreation"))
         printf("GetProofOfStakeReward(): create=%s nCoinAge=%"PRI64d" nBits=%d\n", FormatMoney(nSubsidy).c_str(), nCoinAge, nBits);
 
     return nSubsidy;
@@ -2880,9 +2880,12 @@ bool static ProcessMessage(CNode* pfrom, string strCommand, CDataStream& vRecv)
 
 
 
+    if ( fDebug ) printf("received message %s\n", strCommand.c_str());
+
     if (strCommand == "version")
     {
         // Each connection can only send one version message
+        if ( fDebug ) printf("Got version message\n");
         if (pfrom->nVersion != 0)
         {
             pfrom->Misbehaving(1);
@@ -3008,6 +3011,7 @@ bool static ProcessMessage(CNode* pfrom, string strCommand, CDataStream& vRecv)
     else if (pfrom->nVersion == 0)
     {
         // Must have a version message before anything else
+        if ( fDebug ) printf("misbehaving, did not get a version message before anything else\n");
         pfrom->Misbehaving(1);
         return false;
     }

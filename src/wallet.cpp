@@ -1035,10 +1035,14 @@ void CWallet::AvailableCoins(vector<COutput>& vCoins, bool fOnlyConfirmed, const
             if(pcoin->IsCoinStake() && pcoin->GetBlocksToMaturity() > 0)
                 continue;
 
+            int nDepth = pcoin->GetDepthInMainChain();
+            if (nDepth < 0)
+                continue;
+
             for (unsigned int i = 0; i < pcoin->vout.size(); i++)
                 if (!(pcoin->IsSpent(i)) && IsMine(pcoin->vout[i]) && pcoin->vout[i].nValue > 0 &&
                  (!coinControl || !coinControl->HasSelected() || coinControl->IsSelected((*it).first, i)))
-                    vCoins.push_back(COutput(pcoin, i, pcoin->GetDepthInMainChain()));
+                     vCoins.push_back(COutput(pcoin, i, nDepth));
         }
     }
 }
@@ -1493,7 +1497,9 @@ bool CWallet::CreateCoinStake(const CKeyStore& keystore, unsigned int nBits, int
 		
         // printf(">> block.GetBlockTime() = %"PRI64d", nStakeMinAge = %d, txNew.nTime = %d\n, bool=%d", block.GetBlockTime(), IsProtocolMinStakeAgeChange(txNew.nTime)?nStakeMinAgeNew: nStakeMinAge,txNew.nTime, block.GetBlockTime() +( IsProtocolMinStakeAgeChange(txNew.nTime)?nStakeMinAgeNew: nStakeMinAge ) > txNew.nTime - nMaxStakeSearchInterval);
 		// change here
-        if (block.GetBlockTime() +( IsProtocolMinStakeAgeChange(txNew.nTime)?nStakeMinAgeNew: nStakeMinAge ) > txNew.nTime - nMaxStakeSearchInterval)
+
+        // have changed here txNew.nTime
+        if (block.GetBlockTime() +( IsProtocolMinStakeAgeChange(pcoin.first->nTime)?nStakeMinAgeNew: nStakeMinAge ) > txNew.nTime - nMaxStakeSearchInterval)
             continue; // only count coins meeting min age requirement
 
         bool fKernelFound = false;
@@ -1539,8 +1545,26 @@ bool CWallet::CreateCoinStake(const CKeyStore& keystore, unsigned int nBits, int
                     }
                     scriptPubKeyOut << key.GetPubKey() << OP_CHECKSIG;
                 }
-                else
+                if (whichType == TX_PUBKEY)
+                {
+					CKey key;
+                    valtype& vchPubKey = vSolutions[0];
+                    if (!keystore.GetKey(Hash160(vchPubKey), key))
+                    {
+                        if (fDebug && GetBoolArg("-printcoinstake"))
+                            printf("CreateCoinStake : failed to get key for kernel type=%d\n", whichType);
+                        break;  // unable to find corresponding public key
+                    }
+
+    	            if (key.GetPubKey() != vchPubKey)
+        	        {
+            	        if (fDebug && GetBoolArg("-printcoinstake"))
+                        printf("CreateCoinStake : invalid key for kernel type=%d\n", whichType);
+                        break; // keys mismatch
+                    }
+
                     scriptPubKeyOut = scriptPubKeyKernel;
+                }
 
                 txNew.nTime -= n; 
                 txNew.vin.push_back(CTxIn(pcoin.first->GetHash(), pcoin.second));

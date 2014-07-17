@@ -26,6 +26,7 @@ namespace Checkpoints
         boost::assign::map_list_of
         (     0, hashGenesisBlockOfficial )
         (  143826, uint256("0xe6ce554723ae9bf426c3532a81aed57dfe6e5e80caa6c599ae83c9df7663fb59" ) )
+        (  168204, uint256("0x42782026af4b733b467170f183d762ecd2f2cc2290a79685ad5d70783e21ead4" ) )
 
 
 		;
@@ -351,7 +352,7 @@ namespace Checkpoints
         assert(mapBlockIndex.count(hashSyncCheckpoint));
         const CBlockIndex* pindexSync = mapBlockIndex[hashSyncCheckpoint];
         return (nBestHeight >= pindexSync->nHeight + nCoinbaseMaturity ||
-                pindexSync->GetBlockTime() + nStakeMinAge < GetAdjustedTime());
+                pindexSync->GetBlockTime() + nStakeMinAge < GetAdjustedTime()); // not interesting
     }
 
     // Is the sync-checkpoint too old?
@@ -366,7 +367,7 @@ namespace Checkpoints
 }
 
 // ppcoin: sync-checkpoint master key
-const std::string CSyncCheckpoint::strMasterPubKey = "04629f7808ddb28faefe3787f8e9ba5a34b189d1b7d625339980430d6f6d7dc55009e93db10a6c84b1b4602a26d1a090584ac7350ef716a67a68a50271ac9146ae";
+const std::string CSyncCheckpoint::strMasterPubKey = "04a44fb402f3b7ddc1fd227a37cb12f1f09fe6b9962890733292b9186e74ef4625e3852c0eecf9f4e5bdc5f4a26ec3715e07b1b73d80dba7fd23248b191afadb2a";
 
 std::string CSyncCheckpoint::strMasterPrivKey = "";
 
