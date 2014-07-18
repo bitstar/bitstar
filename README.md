@@ -36,3 +36,8 @@ planned and almost ready is a services tab with various goodies and will be rele
 we are looking at other things we can do and store in the blockchain. but remains a secret for now.
 
 .. more to come ..
+
+2 commits in this release:
+
+https://github.com/bitstar/bitstar/commit/f42984fe1c9c4010f0ff93f77eb530b472ae72f7
+https://github.com/bitstar/bitstar/commit/0c15bcbc2e083d482230f3b66f6ac7fff5c009b8
