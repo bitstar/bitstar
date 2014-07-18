@@ -19,7 +19,7 @@ Please update before block 185,000
 * added anonymous send
 * few color changes by changing some in-code stylesheets
 
-* UPDATE ALERTS FOR WALLETS WILL BE PUSHED OUT ON FRIDAY 
+* UPDATE ALERTS FOR WALLETS WILL BE PUSHED OUT ON FRIDAY 18 juli 2014
 
 note that qt folder ( containing anonymous send, balance column, and additional services tabs, changed stylesheets ) has not been updated. the qt folder is not needed in order to run a succesfull node/client
 
