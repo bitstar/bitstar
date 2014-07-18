@@ -2898,7 +2898,7 @@ bool static ProcessMessage(CNode* pfrom, string strCommand, CDataStream& vRecv)
         uint64 nNonce = 1;
         vRecv >> pfrom->nVersion >> pfrom->nServices >> nTime >> addrMe;
         int dummy = MIN_PROTO_VERSION; // TODO: fix the minversion forcing, something is wrong here. schedule for phase 2.
-        if (pfrom->nVersion < 60009)
+        if (pfrom->nVersion < 60010)
         {
             // Since February 20, 2012, the protocol is initiated at version 209,
             // and earlier versions are no longer supported
