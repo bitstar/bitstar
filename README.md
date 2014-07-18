@@ -33,7 +33,7 @@ planned and almost ready is a services tab with various goodies and will be rele
 
   sorting on balance on receive page sorts like string - will be fixed in next non-mandatory update
   
-  protocol min level fix. this coin has been forked from a non-correct coin when it comes to checking for min proto version. we had to do an ugly fix to disconnect all 60008 clients. we will fix this in a next release.
+  protocol min level fix. this coin has been forked from a non-correct coin when it comes to checking for min proto version. we had to do an ugly fix to disconnect all 60008 clients. We will provide a better fix for this in a next release.
 
 we are looking at other things we can do and store in the blockchain and preparing the alerts code for something else ;)
 
