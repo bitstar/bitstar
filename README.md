@@ -1,33 +1,38 @@
 
 Bitstar - BITS
 
-Bitstar is an energy saving coin generating most of its coins through PoS blocks. It distributes its initial coins through 45 days evenly distributed PoW mining, no halves during the initial distribution phase, thus ensures a fair distribution. After initial distribution, the PoW block payout will be dropped to 1 coin per block. The main coin generation will be done through the PoS generations.
-
-Bitstar also adopts a variable PoS rate with the following annual interest rate:
-- Year 1: 25% 
-- Year 2: 15%
-- Year 3-9: 10%
-- Starting Year 10, it will have an annual PoS interest of 1%
-
-Basically after 9 Years of generation of coins, the coin generation will be basically shut off, and the existing coins will be used for circulation.
-
-Specifications:
-
-- scrypt PoS/PoW
-- 4 transaction confirmations
-- 50 minted block confirmations
-
-PoS:
-- Variable interests
-- PoS Starts after 42 days of minimum holding
-
-PoW: 
-- 45 sec block target
-- Random 100000 - 300000 coins per block for the first 45 days evenly distribution 
-- After 45 days, the PoW block drops to 1 coin / block
-- diff retarget each block
-
 ports:
 connection:	62123
 RPC:			63124
 
+THIS UPDATE IS MANDATORY
+
+New version of wallet is 1.2.0.0, protocol code 60010
+
+Please update before block 185,000
+
+* added checkpoints
+* configured synchronized checkpoints to offer some additional chain protection
+* added commandline switches -nostaking and -nolog, primarily to be used by exchanges
+* added modifier interval patch, from 8h to 1 minute. Entry at block 185,000
+* added address balance column on receive addresses tab
+* added anonymous send
+* few color changes by changing some in-code stylesheets
+
+* UPDATE ALERTS FOR WALLETS WILL BE PUSHED OUT ON FRIDAY 
+
+note that qt folder ( containing anonymous send, balance column, and additional services tabs, changed stylesheets ) has not been updated. the qt folder is not needed in order to run a succesfull node/client
+
+this is mainly a release to fix some issues in the previous wallet.
+
+planned is an alternative way of anonymous send, migration to decentralized one.
+planned and almost ready is a services tab with various goodies and will be released as a non-mandatory update
+
+* issue with newest release
+  sorting on balance on receive page sorts like string - will be fixed in next non-mandatory update
+  protocol min level fix. this coin has been forked from a non-correct coin when it comes to checking for min proto version
+  we had to do an ugly fix to disconnect all 60008 clients. we will fix this in a next release.
+
+we are looking at other things we can do and store in the blockchain. but remains a secret for now.
+
+.. more to come ..
