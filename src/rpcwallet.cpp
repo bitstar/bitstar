@@ -1566,6 +1566,7 @@ public:
         int nRequired;
         ExtractDestinations(subscript, whichType, addresses, nRequired);
         obj.push_back(Pair("script", GetTxnOutputType(whichType)));
+        obj.push_back(Pair("hex", HexStr(subscript.begin(), subscript.end())));
         Array a;
         BOOST_FOREACH(const CTxDestination& addr, addresses)
             a.push_back(CBitcoinAddress(addr).ToString());
@@ -1574,6 +1575,7 @@ public:
             obj.push_back(Pair("sigsrequired", nRequired));
         return obj;
     }
+    
 };
 
 Value validateaddress(const Array& params, bool fHelp)
