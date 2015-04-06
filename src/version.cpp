@@ -11,7 +11,7 @@
 const std::string CLIENT_NAME("Bitstar");
 
 // Client version number
-#define CLIENT_VERSION_SUFFIX   "-adgr"
+#define CLIENT_VERSION_SUFFIX   "-adgr-fs"
 
 
 // The following part of the code determines the CLIENT_BUILD variable.

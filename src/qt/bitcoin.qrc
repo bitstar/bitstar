@@ -48,10 +48,16 @@
         <file alias="backg">res/images/wallet.png</file>
     </qresource>
     <qresource prefix="/movies">
-        <file alias="update_spinner">res/movies/update_spinner.mng</file>
+        <file alias="update_spinner">res/movies/update_spinner.gif</file>
     </qresource>
     <qresource prefix="/translations">
         <file alias="en">locale/bitcoin_en.qm</file>
         <file alias="ru">locale/bitcoin_ru.qm</file>
+    </qresource>
+    <qresource prefix="/">
+        <file>res/fonts/bebas.ttf</file>
+    </qresource>
+    <qresource prefix="/qss">
+        <file alias="stylesheet">res/qss/stylesheet.qss</file>
     </qresource>
 </RCC>

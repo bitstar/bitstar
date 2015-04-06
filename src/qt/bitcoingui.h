@@ -26,6 +26,8 @@ class QModelIndex;
 class QProgressBar;
 class QStackedWidget;
 class QUrl;
+class QAction;
+class QToolButton;
 QT_END_NAMESPACE
 
 /**
@@ -94,6 +96,9 @@ private:
     QAction *lockWalletToggleAction;
     QAction *aboutQtAction;
     QAction *openRPCConsoleAction;
+    QAction *bitstarAction;
+    QToolButton *lockToggleButton;
+    QAction *lockToggleAction;
 
     QSystemTrayIcon *trayIcon;
     Notificator *notificator;

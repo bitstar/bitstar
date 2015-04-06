@@ -3,6 +3,7 @@
 
 #include "walletmodel.h"
 #include "bitcoinunits.h"
+#include "clientmodel.h"
 #include "optionsmodel.h"
 #include "transactiontablemodel.h"
 #include "transactionfilterproxy.h"
@@ -13,7 +14,7 @@
 #include <QAbstractItemDelegate>
 #include <QPainter>
 
-#define DECORATION_SIZE 64
+#define DECORATION_SIZE 40
 #define NUM_ITEMS 6
 
 class TxViewDelegate : public QAbstractItemDelegate
@@ -29,16 +30,25 @@ public:
                       const QModelIndex &index ) const
     {
         painter->save();
+        QRect mainRect = option.rect;
 
         QIcon icon = qvariant_cast<QIcon>(index.data(Qt::DecorationRole));
-        QRect mainRect = option.rect;
-        QRect decorationRect(mainRect.topLeft(), QSize(DECORATION_SIZE, DECORATION_SIZE));
+        QPoint iconRectPosition(mainRect.left() + 12, mainRect.top() + 12);
+        QRect decorationRect(iconRectPosition, QSize(24, 24));
+
         int xspace = DECORATION_SIZE + 8;
-        int ypad = 6;
+        int ypad = 4;
         int halfheight = (mainRect.height() - 2*ypad)/2;
-        QRect amountRect(mainRect.left() + xspace, mainRect.top()+ypad, mainRect.width() - xspace, halfheight);
-        QRect addressRect(mainRect.left() + xspace, mainRect.top()+ypad+halfheight, mainRect.width() - xspace, halfheight);
-        icon.paint(painter, decorationRect);
+        
+        int yspace = 16;
+
+        QRect amountRect(mainRect.left() + xspace, mainRect.top() + yspace, mainRect.width() - xspace - 12, halfheight);
+        QRect addressRect(mainRect.left() + xspace + 150, mainRect.top() + yspace, mainRect.width() - xspace, halfheight);
+
+        painter->drawPixmap(decorationRect, icon.pixmap(QSize(24, 24)));
+
+
+//        icon.paint(painter, decorationRect);
 
         QDateTime date = index.data(TransactionTableModel::DateRole).toDateTime();
         QString address = index.data(Qt::DisplayRole).toString();
@@ -46,9 +56,10 @@ public:
         bool confirmed = index.data(TransactionTableModel::ConfirmedRole).toBool();
         QVariant value = index.data(Qt::ForegroundRole);
         QColor foreground = option.palette.color(QPalette::Text);
-        if(qVariantCanConvert<QColor>(value))
+        if(value.canConvert<QBrush>())
         {
-            foreground = qvariant_cast<QColor>(value);
+            QBrush brush = qvariant_cast<QBrush>(value);
+            foreground = brush.color();
         }
 
         painter->setPen(foreground);
@@ -75,7 +86,8 @@ public:
         painter->drawText(amountRect, Qt::AlignRight|Qt::AlignVCenter, amountText);
 
         painter->setPen(option.palette.color(QPalette::Text));
-        painter->drawText(amountRect, Qt::AlignLeft|Qt::AlignVCenter, GUIUtil::dateTimeStr(date));
+        painter->drawText(amountRect, Qt::AlignLeft|Qt::AlignVCenter, date.toString("dd/MM/yyyy hh:mm:ss"));
+//        GUIUtil::dateTimeStr(date)
 
         painter->restore();
     }
@@ -104,8 +116,8 @@ OverviewPage::OverviewPage(QWidget *parent) :
 
     // Recent transactions
     ui->listTransactions->setItemDelegate(txdelegate);
-    ui->listTransactions->setIconSize(QSize(DECORATION_SIZE, DECORATION_SIZE));
-    ui->listTransactions->setMinimumHeight(NUM_ITEMS * (DECORATION_SIZE + 2));
+//    ui->listTransactions->setIconSize(QSize(DECORATION_SIZE, DECORATION_SIZE));
+//    ui->listTransactions->setMinimumHeight(NUM_ITEMS * (DECORATION_SIZE + 2));
     ui->listTransactions->setAttribute(Qt::WA_MacShowFocusRect, false);
 
     connect(ui->listTransactions, SIGNAL(clicked(QModelIndex)), this, SLOT(handleTransactionClicked(QModelIndex)));
@@ -153,6 +165,15 @@ void OverviewPage::setNumTransactions(int count)
     ui->labelNumTransactions->setText(QLocale::system().toString(count));
 }
 
+void OverviewPage::setNumBlocks(int count, int nTotalBlocks)
+{
+    QDateTime lastBlockTime = this->clientModel->getLastBlockDate();
+    ui->labelLastBlockDate->setText( lastBlockTime.toString("dd/MM/yyyy") );
+    ui->labelLastBlockTime->setText( lastBlockTime.toString("hh:mm:ss") );
+    ui->labelBlockCount->setText( QString::number( count ) );
+//    ui->labelTotalBlocks->setText( QString::number( nTotalBlocks ) );
+}
+
 void OverviewPage::unlockWallet()
 {
     if(model->getEncryptionStatus() == WalletModel::Locked)
@@ -161,20 +182,21 @@ void OverviewPage::unlockWallet()
         dlg.setModel(model);
         if(dlg.exec() == QDialog::Accepted)
         {
-            ui->unlockWalletButton->setText(QString("Lock Wallet"));
+//            ui->unlockWalletButton->setText(QString("Lock Wallet"));
         }
     }
     else
     {
         model->setWalletLocked(true);
-        ui->unlockWalletButton->setText(QString("Unlock Wallet"));
+//        ui->unlockWalletButton->setText(QString("Unlock Wallet"));
     }
 }
 
-void OverviewPage::setModel(WalletModel *model)
+void OverviewPage::setModel(WalletModel *model, ClientModel *clientModel)
 {
     this->model = model;
-    if(model && model->getOptionsModel())
+    this->clientModel = clientModel;
+    if(model && model->getOptionsModel() && clientModel)
     {
         // Set up transaction list
         filter = new TransactionFilterProxy();
@@ -182,7 +204,7 @@ void OverviewPage::setModel(WalletModel *model)
         filter->setLimit(NUM_ITEMS);
         filter->setDynamicSortFilter(true);
         filter->setSortRole(Qt::EditRole);
-        filter->sort(TransactionTableModel::Status, Qt::DescendingOrder);
+        filter->sort(TransactionTableModel::Date, Qt::DescendingOrder);
 
         ui->listTransactions->setModel(filter);
         ui->listTransactions->setModelColumn(TransactionTableModel::ToAddress);
@@ -194,15 +216,18 @@ void OverviewPage::setModel(WalletModel *model)
         setNumTransactions(model->getNumTransactions());
         connect(model, SIGNAL(numTransactionsChanged(int)), this, SLOT(setNumTransactions(int)));
 
+        setNumBlocks(clientModel->getNumBlocks(), clientModel->getNumBlocksOfPeers());
+        connect(clientModel, SIGNAL(numBlocksChanged(int,int)), this, SLOT(setNumBlocks(int,int)));
+
         connect(model->getOptionsModel(), SIGNAL(displayUnitChanged(int)), this, SLOT(updateDisplayUnit()));
 
         // Unlock wallet button
         WalletModel::EncryptionStatus status = model->getEncryptionStatus();
         if(status == WalletModel::Unencrypted)
         {
-            ui->unlockWalletButton->setDisabled(true);
+//            ui->unlockWalletButton->setDisabled(true);
         }
-        connect(ui->unlockWalletButton, SIGNAL(clicked()), this, SLOT(unlockWallet()));
+//        connect(ui->unlockWalletButton, SIGNAL(clicked()), this, SLOT(unlockWallet()));
      }
 
     // update the display unit, to not use the default ("BITS")

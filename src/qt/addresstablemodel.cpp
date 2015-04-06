@@ -3,13 +3,19 @@
 #include "walletmodel.h"
 
 #include "wallet.h"
+#include "bitcoinunits.h"
 #include "base58.h"
+
+using namespace std;
+using namespace boost;
 
 #include <QFont>
 #include <QColor>
 
 const QString AddressTableModel::Send = "S";
 const QString AddressTableModel::Receive = "R";
+
+extern CWallet* pwalletMain;
 
 struct AddressTableEntry
 {
@@ -139,7 +145,7 @@ public:
 AddressTableModel::AddressTableModel(CWallet *wallet, WalletModel *parent) :
     QAbstractTableModel(parent),walletModel(parent),wallet(wallet),priv(0)
 {
-    columns << tr("Label") << tr("Address");
+    columns << tr("Label") << tr("Address") << tr("Balance");
     priv = new AddressTablePriv(wallet, this);
     priv->refreshAddressTable();
 }
@@ -183,6 +189,11 @@ QVariant AddressTableModel::data(const QModelIndex &index, int role) const
             }
         case Address:
             return rec->address;
+        case Balance:
+            // TODO: add retreiving balance for rec->address
+            return rec->type == AddressTableEntry::Receiving ?
+                           this->balanceForAddress(rec->address):
+                                  0;
         }
     }
     else if (role == Qt::FontRole)
@@ -369,6 +380,30 @@ bool AddressTableModel::removeRows(int row, int count, const QModelIndex & paren
     }
     return true;
 }
+
+
+/* Look up balance for receiving address, it takes address changes because of staking in account.
+ */
+QVariant AddressTableModel::balanceForAddress(const QString &address) const
+{
+
+    // added by b.it.star devs
+    map<QString, vector<COutput> > mapCoins;
+    walletModel->listCoins(mapCoins);
+
+    int64 nSum = 0;
+    BOOST_FOREACH(PAIRTYPE(QString, vector<COutput>) coins, mapCoins){
+        QString sWalletAddress = coins.first;
+        if ( sWalletAddress == address){
+            BOOST_FOREACH(const COutput& out, coins.second){
+              nSum += out.tx->vout[out.i].nValue;
+            }
+        }
+    }
+    return BitcoinUnits::format(BitcoinUnits::BTC, nSum);
+
+}
+
 
 /* Look up label for address in address book, if not found return empty string.
  */

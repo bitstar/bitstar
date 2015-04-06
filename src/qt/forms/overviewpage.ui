@@ -7,209 +7,551 @@
     <x>0</x>
     <y>0</y>
     <width>715</width>
-    <height>441</height>
+    <height>403</height>
    </rect>
   </property>
   <property name="windowTitle">
    <string>Form</string>
   </property>
-  <layout class="QHBoxLayout" name="horizontalLayout" stretch="1,1">
+  <property name="layoutDirection">
+   <enum>Qt::LeftToRight</enum>
+  </property>
+  <property name="styleSheet">
+   <string notr="true"/>
+  </property>
+  <layout class="QHBoxLayout" name="horizontalLayout" stretch="0">
    <item>
-    <layout class="QVBoxLayout" name="verticalLayout_2">
+    <layout class="QVBoxLayout" name="overviewLayout" stretch="0,0,0,0">
+     <property name="spacing">
+      <number>0</number>
+     </property>
+     <property name="sizeConstraint">
+      <enum>QLayout::SetDefaultConstraint</enum>
+     </property>
+     <property name="leftMargin">
+      <number>12</number>
+     </property>
+     <property name="topMargin">
+      <number>12</number>
+     </property>
+     <property name="rightMargin">
+      <number>12</number>
+     </property>
+     <property name="bottomMargin">
+      <number>12</number>
+     </property>
      <item>
-      <widget class="QFrame" name="frame">
+      <widget class="QFrame" name="walletTitleFrame">
+       <layout class="QHBoxLayout" name="horizontalLayout_4">
+        <property name="spacing">
+         <number>0</number>
+        </property>
+        <property name="leftMargin">
+         <number>0</number>
+        </property>
+        <property name="topMargin">
+         <number>0</number>
+        </property>
+        <property name="rightMargin">
+         <number>0</number>
+        </property>
+        <property name="bottomMargin">
+         <number>0</number>
+        </property>
+        <item>
+         <widget class="QWidget" name="widget_4" native="true">
+          <property name="minimumSize">
+           <size>
+            <width>0</width>
+            <height>0</height>
+           </size>
+          </property>
+          <property name="styleSheet">
+           <string notr="true">color: #60CAE8;</string>
+          </property>
+          <layout class="QHBoxLayout" name="horizontalLayout_11">
+           <property name="leftMargin">
+            <number>0</number>
+           </property>
+           <property name="topMargin">
+            <number>0</number>
+           </property>
+           <property name="rightMargin">
+            <number>0</number>
+           </property>
+           <property name="bottomMargin">
+            <number>0</number>
+           </property>
+           <item>
+            <widget class="QLabel" name="label_5">
+             <property name="font">
+              <font>
+               <pointsize>-1</pointsize>
+              </font>
+             </property>
+             <property name="styleSheet">
+              <string notr="true">font-size: 18px;</string>
+             </property>
+             <property name="text">
+              <string>Wallet</string>
+             </property>
+            </widget>
+           </item>
+           <item>
+            <widget class="QLabel" name="labelWalletStatus">
+             <property name="toolTip">
+              <string>The displayed information may be out of date. Your wallet automatically synchronizes with the Bitstar network after a connection is established, but this process has not completed yet.</string>
+             </property>
+             <property name="styleSheet">
+              <string notr="true">color: #e21e25;</string>
+             </property>
+             <property name="text">
+              <string notr="true">(out of sync)</string>
+             </property>
+             <property name="alignment">
+              <set>Qt::AlignLeading|Qt::AlignLeft|Qt::AlignVCenter</set>
+             </property>
+            </widget>
+           </item>
+           <item>
+            <spacer name="horizontalSpacer_2">
+             <property name="orientation">
+              <enum>Qt::Horizontal</enum>
+             </property>
+             <property name="sizeHint" stdset="0">
+              <size>
+               <width>40</width>
+               <height>20</height>
+              </size>
+             </property>
+            </spacer>
+           </item>
+          </layout>
+         </widget>
+        </item>
+       </layout>
+      </widget>
+     </item>
+     <item>
+      <widget class="QFrame" name="walletFrame">
+       <property name="enabled">
+        <bool>true</bool>
+       </property>
+       <property name="sizePolicy">
+        <sizepolicy hsizetype="Preferred" vsizetype="Preferred">
+         <horstretch>0</horstretch>
+         <verstretch>0</verstretch>
+        </sizepolicy>
+       </property>
+       <property name="maximumSize">
+        <size>
+         <width>16777215</width>
+         <height>300</height>
+        </size>
+       </property>
+       <property name="baseSize">
+        <size>
+         <width>0</width>
+         <height>0</height>
+        </size>
+       </property>
        <property name="frameShape">
         <enum>QFrame::StyledPanel</enum>
        </property>
        <property name="frameShadow">
         <enum>QFrame::Raised</enum>
        </property>
-       <layout class="QVBoxLayout" name="verticalLayout_4">
+       <layout class="QHBoxLayout" name="horizontalLayout_6">
+        <property name="spacing">
+         <number>6</number>
+        </property>
+        <property name="leftMargin">
+         <number>0</number>
+        </property>
+        <property name="topMargin">
+         <number>0</number>
+        </property>
+        <property name="rightMargin">
+         <number>0</number>
+        </property>
+        <property name="bottomMargin">
+         <number>0</number>
+        </property>
         <item>
-         <layout class="QHBoxLayout" name="horizontalLayout_4">
+         <layout class="QHBoxLayout" name="horizontalLayout_10">
+          <property name="spacing">
+           <number>0</number>
+          </property>
           <item>
-           <widget class="QLabel" name="label_5">
-            <property name="font">
-             <font>
-              <pointsize>11</pointsize>
-              <weight>75</weight>
-              <bold>true</bold>
-             </font>
-            </property>
-            <property name="text">
-             <string>Wallet</string>
-            </property>
-           </widget>
-          </item>
-          <item>
-           <widget class="QLabel" name="labelWalletStatus">
-            <property name="toolTip">
-             <string>The displayed information may be out of date. Your wallet automatically synchronizes with the Bitstar network after a connection is established, but this process has not completed yet.</string>
-            </property>
+           <widget class="QWidget" name="balance" native="true">
             <property name="styleSheet">
-             <string notr="true">QLabel { color: red; }</string>
+             <string notr="true">background: #85E285;
+color: #FFFFFF;</string>
             </property>
-            <property name="text">
-             <string notr="true">(out of sync)</string>
-            </property>
-            <property name="alignment">
-             <set>Qt::AlignLeading|Qt::AlignLeft|Qt::AlignVCenter</set>
-            </property>
+            <layout class="QFormLayout" name="formLayout_2">
+             <property name="fieldGrowthPolicy">
+              <enum>QFormLayout::FieldsStayAtSizeHint</enum>
+             </property>
+             <property name="leftMargin">
+              <number>12</number>
+             </property>
+             <property name="topMargin">
+              <number>12</number>
+             </property>
+             <property name="rightMargin">
+              <number>12</number>
+             </property>
+             <property name="bottomMargin">
+              <number>12</number>
+             </property>
+             <item row="0" column="0" colspan="2">
+              <widget class="QLabel" name="labelBalance">
+               <property name="styleSheet">
+                <string notr="true">color: #4C4C4C;
+font-size: 13px;
+font-weight: bold;
+padding-top: 15px;
+text-align: left;</string>
+               </property>
+               <property name="text">
+                <string>0 BITS</string>
+               </property>
+               <property name="indent">
+                <number>0</number>
+               </property>
+              </widget>
+             </item>
+             <item row="1" column="0">
+              <widget class="QLabel" name="label_8">
+               <property name="styleSheet">
+                <string notr="true">color: #4C4C4C;
+font-size: 12px;</string>
+               </property>
+               <property name="text">
+                <string>Account Balance</string>
+               </property>
+              </widget>
+             </item>
+            </layout>
            </widget>
-          </item>
-          <item>
-           <spacer name="horizontalSpacer_2">
-            <property name="orientation">
-             <enum>Qt::Horizontal</enum>
-            </property>
-            <property name="sizeHint" stdset="0">
-             <size>
-              <width>40</width>
-              <height>20</height>
-             </size>
-            </property>
-           </spacer>
           </item>
          </layout>
         </item>
         <item>
-         <layout class="QFormLayout" name="formLayout_2">
-          <property name="fieldGrowthPolicy">
-           <enum>QFormLayout::AllNonFixedFieldsGrow</enum>
+         <layout class="QHBoxLayout" name="horizontalLayout_8">
+          <property name="spacing">
+           <number>0</number>
           </property>
-          <property name="horizontalSpacing">
-           <number>12</number>
+          <property name="leftMargin">
+           <number>0</number>
           </property>
-          <property name="verticalSpacing">
-           <number>12</number>
-          </property>
-          <item row="0" column="0">
-           <widget class="QLabel" name="label">
-            <property name="text">
-             <string>Balance:</string>
+          <item>
+           <widget class="QWidget" name="widget_3" native="true">
+            <property name="styleSheet">
+             <string notr="true">background: #60CAE8;
+color: #FFFFFF;</string>
             </property>
+            <layout class="QFormLayout" name="formLayout_4">
+             <property name="fieldGrowthPolicy">
+              <enum>QFormLayout::FieldsStayAtSizeHint</enum>
+             </property>
+             <property name="leftMargin">
+              <number>12</number>
+             </property>
+             <property name="topMargin">
+              <number>12</number>
+             </property>
+             <property name="rightMargin">
+              <number>12</number>
+             </property>
+             <property name="bottomMargin">
+              <number>12</number>
+             </property>
+             <item row="0" column="0" colspan="2">
+              <widget class="QLabel" name="labelBlockinfo">
+               <property name="styleSheet">
+                <string notr="true">color: #4C4C4C;
+font-size: 13px;
+font-weight: bold;
+padding-top: 15px;
+text-align: left;</string>
+               </property>
+               <property name="text">
+                <string>Blockinfo</string>
+               </property>
+               <property name="indent">
+                <number>0</number>
+               </property>
+               <property name="buddy">
+                <cstring></cstring>
+               </property>
+              </widget>
+             </item>
+             <item row="1" column="0">
+              <widget class="QLabel" name="label_7">
+               <property name="styleSheet">
+                <string notr="true">color: #4C4C4C;
+font-size: 12px;</string>
+               </property>
+               <property name="text">
+                <string>Synced</string>
+               </property>
+              </widget>
+             </item>
+             <item row="1" column="1">
+              <widget class="QLabel" name="labelBlockCount">
+               <property name="styleSheet">
+                <string notr="true">color: #4C4C4C;
+font-size: 12px;</string>
+               </property>
+               <property name="text">
+                <string>syncBlocks</string>
+               </property>
+              </widget>
+             </item>
+             <item row="2" column="0">
+              <widget class="QLabel" name="label_9">
+               <property name="styleSheet">
+                <string notr="true">color: #4C4C4C;
+font-size: 12px;</string>
+               </property>
+               <property name="text">
+                <string>Date</string>
+               </property>
+              </widget>
+             </item>
+             <item row="2" column="1">
+              <widget class="QLabel" name="labelLastBlockDate">
+               <property name="styleSheet">
+                <string notr="true">color: #4C4C4C;
+font-size: 12px;</string>
+               </property>
+               <property name="text">
+                <string>22/05/2014</string>
+               </property>
+              </widget>
+             </item>
+             <item row="3" column="0">
+              <widget class="QLabel" name="label_10">
+               <property name="styleSheet">
+                <string notr="true">color: #4C4C4C;
+font-size: 12px;</string>
+               </property>
+               <property name="text">
+                <string>Time</string>
+               </property>
+              </widget>
+             </item>
+             <item row="3" column="1">
+              <widget class="QLabel" name="labelLastBlockTime">
+               <property name="styleSheet">
+                <string notr="true">color: #4C4C4C;
+font-size: 12px;</string>
+               </property>
+               <property name="text">
+                <string>15:31:22</string>
+               </property>
+              </widget>
+             </item>
+            </layout>
            </widget>
           </item>
-          <item row="0" column="1">
-           <widget class="QLabel" name="labelBalance">
-            <property name="font">
-             <font>
-              <weight>75</weight>
-              <bold>true</bold>
-             </font>
+         </layout>
+        </item>
+        <item>
+         <layout class="QHBoxLayout" name="horizontalLayout_9">
+          <item>
+           <widget class="QWidget" name="widget" native="true">
+            <property name="styleSheet">
+             <string notr="true">background: #FFA500;
+color: #FFFFFF;</string>
             </property>
-            <property name="cursor">
-             <cursorShape>IBeamCursor</cursorShape>
-            </property>
-            <property name="toolTip">
-             <string>Your current balance</string>
-            </property>
-            <property name="text">
-             <string notr="true">0 BITS</string>
-            </property>
-            <property name="textInteractionFlags">
-             <set>Qt::LinksAccessibleByMouse|Qt::TextSelectableByKeyboard|Qt::TextSelectableByMouse</set>
-            </property>
+            <layout class="QFormLayout" name="formLayout_3">
+             <property name="fieldGrowthPolicy">
+              <enum>QFormLayout::FieldsStayAtSizeHint</enum>
+             </property>
+             <item row="0" column="0" colspan="2">
+              <widget class="QLabel" name="labelCoinInfo">
+               <property name="styleSheet">
+                <string notr="true">color: #4C4C4C;
+font-size: 13px;
+font-weight: bold;
+padding-top: 15px;
+text-align: left;</string>
+               </property>
+               <property name="text">
+                <string>Coininfo</string>
+               </property>
+               <property name="indent">
+                <number>0</number>
+               </property>
+               <property name="buddy">
+                <cstring></cstring>
+               </property>
+              </widget>
+             </item>
+             <item row="1" column="0">
+              <widget class="QLabel" name="label_6">
+               <property name="styleSheet">
+                <string notr="true">color: #4C4C4C;
+font-size: 12px;</string>
+               </property>
+               <property name="text">
+                <string>Stake</string>
+               </property>
+              </widget>
+             </item>
+             <item row="1" column="1">
+              <widget class="QLabel" name="labelStake">
+               <property name="font">
+                <font>
+                 <pointsize>-1</pointsize>
+                </font>
+               </property>
+               <property name="cursor">
+                <cursorShape>IBeamCursor</cursorShape>
+               </property>
+               <property name="toolTip">
+                <string>Total of coins that was staked, and do not yet count toward the current balance</string>
+               </property>
+               <property name="styleSheet">
+                <string notr="true">color: #4C4C4C;
+font-size: 12px;</string>
+               </property>
+               <property name="text">
+                <string notr="true">0 BITS</string>
+               </property>
+               <property name="textInteractionFlags">
+                <set>Qt::LinksAccessibleByMouse|Qt::TextSelectableByKeyboard|Qt::TextSelectableByMouse</set>
+               </property>
+              </widget>
+             </item>
+             <item row="2" column="0">
+              <widget class="QLabel" name="label_3">
+               <property name="styleSheet">
+                <string notr="true">color: #4C4C4C;
+font-size: 12px;</string>
+               </property>
+               <property name="text">
+                <string>Unconfirmed</string>
+               </property>
+              </widget>
+             </item>
+             <item row="2" column="1">
+              <widget class="QLabel" name="labelUnconfirmed">
+               <property name="font">
+                <font>
+                 <pointsize>-1</pointsize>
+                </font>
+               </property>
+               <property name="cursor">
+                <cursorShape>IBeamCursor</cursorShape>
+               </property>
+               <property name="toolTip">
+                <string>Total of transactions that have yet to be confirmed, and do not yet count toward the current balance</string>
+               </property>
+               <property name="styleSheet">
+                <string notr="true">color: #4C4C4C;
+font-size: 12px;</string>
+               </property>
+               <property name="text">
+                <string notr="true">0 BITS</string>
+               </property>
+               <property name="textInteractionFlags">
+                <set>Qt::LinksAccessibleByMouse|Qt::TextSelectableByKeyboard|Qt::TextSelectableByMouse</set>
+               </property>
+              </widget>
+             </item>
+             <item row="3" column="1">
+              <widget class="QLabel" name="labelNumTransactions">
+               <property name="toolTip">
+                <string>Total number of transactions in wallet</string>
+               </property>
+               <property name="styleSheet">
+                <string notr="true">color: #4C4C4C;
+font-size: 12px;</string>
+               </property>
+               <property name="text">
+                <string notr="true">0</string>
+               </property>
+              </widget>
+             </item>
+             <item row="3" column="0">
+              <widget class="QLabel" name="labelTransactions">
+               <property name="styleSheet">
+                <string notr="true">color: #4C4C4C;
+font-size: 12px;</string>
+               </property>
+               <property name="text">
+                <string>Transactions</string>
+               </property>
+              </widget>
+             </item>
+             <item row="4" column="0">
+              <widget class="QLabel" name="labelImmatureText">
+               <property name="styleSheet">
+                <string notr="true">color: #4C4C4C;
+font-size: 12px;</string>
+               </property>
+               <property name="text">
+                <string>Immature</string>
+               </property>
+              </widget>
+             </item>
+             <item row="4" column="1">
+              <widget class="QLabel" name="labelImmature">
+               <property name="font">
+                <font>
+                 <pointsize>-1</pointsize>
+                </font>
+               </property>
+               <property name="toolTip">
+                <string>Mined balance that has not yet matured</string>
+               </property>
+               <property name="styleSheet">
+                <string notr="true">color: #4C4C4C;
+font-size: 12px;</string>
+               </property>
+               <property name="text">
+                <string notr="true">0 BITS</string>
+               </property>
+               <property name="textInteractionFlags">
+                <set>Qt::LinksAccessibleByMouse|Qt::TextSelectableByKeyboard|Qt::TextSelectableByMouse</set>
+               </property>
+              </widget>
+             </item>
+            </layout>
            </widget>
           </item>
-          <item row="1" column="0">
-           <widget class="QLabel" name="label_6">
-            <property name="text">
-             <string>Stake:</string>
-            </property>
-           </widget>
-          </item>
-          <item row="1" column="1">
-           <widget class="QLabel" name="labelStake">
-            <property name="font">
-             <font>
-              <weight>75</weight>
-              <bold>true</bold>
-             </font>
-            </property>
-            <property name="cursor">
-             <cursorShape>IBeamCursor</cursorShape>
-            </property>
-            <property name="toolTip">
-             <string>Total of coins that was staked, and do not yet count toward the current balance</string>
+         </layout>
+        </item>
+        <item>
+         <layout class="QHBoxLayout" name="horizontalLayout_7">
+          <item>
+           <widget class="QLabel" name="logo">
+            <property name="maximumSize">
+             <size>
+              <width>150</width>
+              <height>150</height>
+             </size>
             </property>
             <property name="text">
-             <string notr="true">0 BITS</string>
+             <string/>
             </property>
-            <property name="textInteractionFlags">
-             <set>Qt::LinksAccessibleByMouse|Qt::TextSelectableByKeyboard|Qt::TextSelectableByMouse</set>
+            <property name="pixmap">
+             <pixmap resource="../bitcoin.qrc">:/images/about</pixmap>
             </property>
-           </widget>
-          </item>
-          <item row="2" column="0">
-           <widget class="QLabel" name="label_3">
-            <property name="text">
-             <string>Unconfirmed:</string>
+            <property name="scaledContents">
+             <bool>true</bool>
             </property>
-           </widget>
-          </item>
-          <item row="2" column="1">
-           <widget class="QLabel" name="labelUnconfirmed">
-            <property name="font">
-             <font>
-              <weight>75</weight>
-              <bold>true</bold>
-             </font>
+            <property name="alignment">
+             <set>Qt::AlignLeading|Qt::AlignLeft|Qt::AlignVCenter</set>
             </property>
-            <property name="cursor">
-             <cursorShape>IBeamCursor</cursorShape>
+            <property name="margin">
+             <number>0</number>
             </property>
-            <property name="toolTip">
-             <string>Total of transactions that have yet to be confirmed, and do not yet count toward the current balance</string>
-            </property>
-            <property name="text">
-             <string notr="true">0 BITS</string>
-            </property>
-            <property name="textInteractionFlags">
-             <set>Qt::LinksAccessibleByMouse|Qt::TextSelectableByKeyboard|Qt::TextSelectableByMouse</set>
-            </property>
-           </widget>
-          </item>
-          <item row="3" column="0">
-           <widget class="QLabel" name="labelImmatureText">
-            <property name="text">
-             <string>Immature:</string>
-            </property>
-           </widget>
-          </item>
-          <item row="3" column="1">
-           <widget class="QLabel" name="labelImmature">
-            <property name="font">
-             <font>
-              <weight>75</weight>
-              <bold>true</bold>
-             </font>
-            </property>
-            <property name="toolTip">
-             <string>Mined balance that has not yet matured</string>
-            </property>
-            <property name="text">
-             <string notr="true">0 BITS</string>
-            </property>
-            <property name="textInteractionFlags">
-             <set>Qt::LinksAccessibleByMouse|Qt::TextSelectableByKeyboard|Qt::TextSelectableByMouse</set>
-            </property>
-           </widget>
-          </item>
-          <item row="4" column="0">
-           <widget class="QLabel" name="label_2">
-            <property name="text">
-             <string>Number of transactions:</string>
-            </property>
-           </widget>
-          </item>
-          <item row="4" column="1">
-           <widget class="QLabel" name="labelNumTransactions">
-            <property name="toolTip">
-             <string>Total number of transactions in wallet</string>
-            </property>
-            <property name="text">
-             <string notr="true">0</string>
+            <property name="indent">
+             <number>0</number>
             </property>
            </widget>
           </item>
@@ -219,43 +561,94 @@
       </widget>
      </item>
      <item>
-      <spacer name="verticalSpacer">
-       <property name="orientation">
-        <enum>Qt::Vertical</enum>
-       </property>
-       <property name="sizeHint" stdset="0">
-        <size>
-         <width>20</width>
-         <height>40</height>
-        </size>
-       </property>
-      </spacer>
-     </item>
-     <item>
-      <widget class="QLabel" name="label_6">
-       <property name="text">
-        <string/>
-       </property>
-       <property name="pixmap">
-        <pixmap resource="../bitcoin.qrc">:/images/backg</pixmap>
-       </property>
-       <property name="scaledContents">
-        <bool>false</bool>
-       </property>
-       <property name="alignment">
-        <set>Qt::AlignCenter</set>
-       </property>
-       <property name="margin">
-        <number>-2</number>
-       </property>
+      <widget class="QWidget" name="transactionsTitleFrame" native="true">
+       <layout class="QHBoxLayout" name="horizontalLayout_2">
+        <property name="spacing">
+         <number>0</number>
+        </property>
+        <property name="leftMargin">
+         <number>0</number>
+        </property>
+        <property name="topMargin">
+         <number>20</number>
+        </property>
+        <property name="rightMargin">
+         <number>0</number>
+        </property>
+        <property name="bottomMargin">
+         <number>0</number>
+        </property>
+        <item>
+         <widget class="QWidget" name="widget_5" native="true">
+          <property name="minimumSize">
+           <size>
+            <width>0</width>
+            <height>0</height>
+           </size>
+          </property>
+          <property name="styleSheet">
+           <string notr="true">color: #60CAE8;</string>
+          </property>
+          <layout class="QHBoxLayout" name="horizontalLayout_12">
+           <property name="leftMargin">
+            <number>0</number>
+           </property>
+           <property name="topMargin">
+            <number>0</number>
+           </property>
+           <property name="rightMargin">
+            <number>0</number>
+           </property>
+           <property name="bottomMargin">
+            <number>0</number>
+           </property>
+           <item>
+            <widget class="QLabel" name="label_4">
+             <property name="styleSheet">
+              <string notr="true">font-size: 18px;</string>
+             </property>
+             <property name="text">
+              <string>Recent transactions</string>
+             </property>
+            </widget>
+           </item>
+           <item>
+            <widget class="QLabel" name="labelTransactionsStatus">
+             <property name="toolTip">
+              <string>The displayed information may be out of date. Your wallet automatically synchronizes with the Bitstar network after a connection is established, but this process has not completed yet.</string>
+             </property>
+             <property name="styleSheet">
+              <string notr="true">color: #e21e25;</string>
+             </property>
+             <property name="text">
+              <string notr="true">(out of sync)</string>
+             </property>
+             <property name="alignment">
+              <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
+             </property>
+            </widget>
+           </item>
+           <item>
+            <spacer name="horizontalSpacer">
+             <property name="orientation">
+              <enum>Qt::Horizontal</enum>
+             </property>
+             <property name="sizeHint" stdset="0">
+              <size>
+               <width>40</width>
+               <height>20</height>
+              </size>
+             </property>
+            </spacer>
+           </item>
+          </layout>
+         </widget>
+        </item>
+       </layout>
       </widget>
      </item>
-    </layout>
-   </item>
-   <item>
-    <layout class="QVBoxLayout" name="verticalLayout_3">
      <item>
-      <widget class="QFrame" name="frame_2">
+      <widget class="QFrame" name="transactionsFrame">
        <property name="frameShape">
         <enum>QFrame::StyledPanel</enum>
        </property>
@@ -263,56 +656,33 @@
         <enum>QFrame::Raised</enum>
        </property>
        <layout class="QVBoxLayout" name="verticalLayout">
-        <item>
-         <layout class="QHBoxLayout" name="horizontalLayout_2">
-          <item>
-           <widget class="QLabel" name="label_4">
-            <property name="text">
-             <string>&lt;b&gt;Recent transactions&lt;/b&gt;</string>
-            </property>
-           </widget>
-          </item>
-          <item>
-           <widget class="QLabel" name="labelTransactionsStatus">
-            <property name="toolTip">
-             <string>The displayed information may be out of date. Your wallet automatically synchronizes with the Bitstar network after a connection is established, but this process has not completed yet.</string>
-            </property>
-            <property name="styleSheet">
-             <string notr="true">QLabel { color: red; }</string>
-            </property>
-            <property name="text">
-             <string notr="true">(out of sync)</string>
-            </property>
-            <property name="alignment">
-             <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
-            </property>
-           </widget>
-          </item>
-          <item>
-           <spacer name="horizontalSpacer">
-            <property name="orientation">
-             <enum>Qt::Horizontal</enum>
-            </property>
-            <property name="sizeHint" stdset="0">
-             <size>
-              <width>40</width>
-              <height>20</height>
-             </size>
-            </property>
-           </spacer>
-          </item>
-         </layout>
-        </item>
+        <property name="spacing">
+         <number>0</number>
+        </property>
+        <property name="leftMargin">
+         <number>0</number>
+        </property>
+        <property name="topMargin">
+         <number>0</number>
+        </property>
+        <property name="rightMargin">
+         <number>0</number>
+        </property>
+        <property name="bottomMargin">
+         <number>0</number>
+        </property>
         <item>
          <widget class="QListView" name="listTransactions">
           <property name="styleSheet">
-           <string notr="true">QListView { background: transparent; }</string>
+           <string notr="true">background: #4C4C4C;
+color: #FFFFFF;
+</string>
           </property>
           <property name="frameShape">
            <enum>QFrame::NoFrame</enum>
           </property>
           <property name="verticalScrollBarPolicy">
-           <enum>Qt::ScrollBarAlwaysOff</enum>
+           <enum>Qt::ScrollBarAsNeeded</enum>
           </property>
           <property name="horizontalScrollBarPolicy">
            <enum>Qt::ScrollBarAlwaysOff</enum>
@@ -323,26 +693,6 @@
          </widget>
         </item>
        </layout>
-      </widget>
-     </item>
-     <item>
-      <spacer name="verticalSpacer_2">
-       <property name="orientation">
-        <enum>Qt::Vertical</enum>
-       </property>
-       <property name="sizeHint" stdset="0">
-        <size>
-         <width>20</width>
-         <height>40</height>
-        </size>
-       </property>
-      </spacer>
-     </item>
-     <item>
-      <widget class="QPushButton" name="unlockWalletButton">
-       <property name="text">
-        <string>Unlock Wallet</string>
-       </property>
       </widget>
      </item>
     </layout>

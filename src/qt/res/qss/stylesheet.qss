@@ -1,0 +1,190 @@
+QMainWindow {
+    background-color: #111111;
+}
+
+QFrame {
+    border: none;
+}
+
+QToolBar,
+QToolBar::handle {
+    padding: 0px;
+    margin: 0px;
+    border-top: 4px solid #4f4f4f;
+    background-color: #1D1D1D;
+}
+
+#menuToolBar {
+    width: 650px;
+    min-width: 650px;
+}
+
+#homeToolBar QActionGroup,
+#menuToolBar QActionGroup {
+    border: none;
+}
+
+#homeToolBar QToolButton,
+#menuToolBar QToolButton {
+    padding: 0;
+    margin: 0;
+    border: none;
+    background: none;
+    min-height: 60px;
+    color: #C4C4C4;
+    font-size: 12px;
+    text-align: left;
+}
+
+#homeToolBar QToolButton {
+    font-size: 24px;
+    line-height: 30px;
+    font-weight: bold;
+    padding-left: 10px;
+    padding-right: 10px;
+    border-top: 4px solid transparent;
+    color: #FFFFFF;
+}
+
+#menuToolBar QToolButton {
+    font-family: 'Bebas';
+    font-size: 14px;
+    line-height: 20px;
+    border-top: 4px solid transparent;
+    padding-left: 10px;
+    padding-right: 10px;
+}
+
+#homeToolBar QToolButton:hover,
+#homeToolBar QToolButton:pressed,
+#homeToolBar QToolButton:selected,
+#menuToolBar QToolButton:hover,
+#menuToolBar QToolButton:pressed,
+#menuToolBar QToolButton:selected {
+    color: #FFFFFF;
+}
+
+#homeToolBar QToolButton:checked,
+#menuToolBar QToolButton:checked {
+    color: #FFFFFF;
+}
+
+#homeToolBar QToolButton::disabled,
+#menuToolBar QToolButton::disabled {
+    color: gray;
+}
+
+QToolButton#overviewMenu {
+    border-top: 4px solid #60CAE8;
+}
+
+QToolButton#overviewMenu:hover,
+QToolButton#overviewMenu:pressed,
+QToolButton#overviewMenu:selected,
+QToolButton#overviewMenu:checked {
+    color: #60CAE8;
+}
+
+QToolButton#sendcoinsMenu {
+    border-top: 4px solid #BED431;
+}
+
+QToolButton#sendcoinsMenu:hover,
+QToolButton#sendcoinsMenu:pressed,
+QToolButton#sendcoinsMenu:selected,
+QToolButton#sendcoinsMenu:checked {
+    color: #BED431;
+}
+
+QToolButton#receivecoinsMenu {
+    border-top: 4px solid #e21e25;
+}
+
+QToolButton#receivecoinsMenu:hover,
+QToolButton#receivecoinsMenu:pressed,
+QToolButton#receivecoinsMenu:selected,
+QToolButton#receivecoinsMenu:checked {
+    color: #e21e25;
+}
+
+QToolButton#historyMenu {
+    border-top: 4px solid #f6c815;
+}
+
+QToolButton#historyMenu:hover,
+QToolButton#historyMenu:pressed,
+QToolButton#historyMenu:selected,
+QToolButton#historyMenu:checked {
+    color: #f6c815;
+}
+
+QToolButton#addressBookMenu {
+    border-top: 4px solid #f11aa8;
+}
+
+QToolButton#addressBookMenu:hover,
+QToolButton#addressBookMenu:pressed,
+QToolButton#addressBookMenu:selected,
+QToolButton#addressBookMenu:checked {
+    color: #f11aa8;
+}
+
+QToolButton#lockToggleMenu {
+    border-top: 4px solid #fe4419;
+}
+
+QToolButton#lockToggleMenu:hover,
+QToolButton#lockToggleMenu:pressed,
+QToolButton#lockToggleMenu:selected,
+QToolButton#lockToggleMenu:checked {
+    color: #fe4419;
+}
+
+QFormLayout#blockCount {
+    border: none;
+    background: #60CAE8;
+    color: #FFFFFF;
+}
+
+#OverviewPage QLabel {
+    color: #FFFFFF;
+}
+
+#transactionsFrame {
+    background: #7251a2;
+}
+
+#SendCoinsDialog {
+    color: #FFFFFF;
+}
+
+#blocksFrame QFormLayout,
+#blocksFrame QHBoxLayout {
+    background: #60CAE8;
+}
+
+#statusBar {
+    padding: 0px;
+    margin: 0px;
+    border-bottom: 4px solid #4f4f4f;
+    background: #1D1D1D;
+    color: #FFFFFF;
+}
+
+QStatusBar#statusBar::item {
+    border: 0px;
+    border-style: none;
+}
+
+QLabel#progressBarLabel {
+    border: 0px;
+    border-style: none;
+    color: #FFFFFF;
+}
+
+QProgressBar#progressBar {
+    border: 0px;
+    border-style: none;
+    color: #FFFFFF;
+    background: transparent;
+}

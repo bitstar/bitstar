@@ -20,7 +20,8 @@ public:
 
     enum ColumnIndex {
         Label = 0,   /**< User specified label */
-        Address = 1  /**< Bitcoin address */
+        Address = 1,  /**< Bitcoin address */
+        Balance = 2  /**< Bitcoin address */
     };
 
     enum RoleIndex {
@@ -41,6 +42,9 @@ public:
 
     /** @name Methods overridden from QAbstractTableModel
         @{*/
+
+    int setReceiving();
+    int setSending();
     int rowCount(const QModelIndex &parent) const;
     int columnCount(const QModelIndex &parent) const;
     QVariant data(const QModelIndex &index, int role) const;
@@ -59,7 +63,7 @@ public:
     /* Look up label for address in address book, if not found return empty string.
      */
     QString labelForAddress(const QString &address) const;
-
+    QVariant balanceForAddress(const QString &address) const;
     /* Look up row index of an address in the model.
        Return -1 if not found.
      */

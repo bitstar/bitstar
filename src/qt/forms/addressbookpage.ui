@@ -6,7 +6,7 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>760</width>
+    <width>1009</width>
     <height>380</height>
    </rect>
   </property>
@@ -14,162 +14,372 @@
    <string>Address Book</string>
   </property>
   <layout class="QVBoxLayout" name="verticalLayout">
+   <property name="leftMargin">
+    <number>12</number>
+   </property>
    <item>
-    <widget class="QLabel" name="labelExplanation">
-     <property name="text">
-      <string>These are your Bitstar addresses for receiving payments. You may want to give a different one to each sender so you can keep track of who is paying you.</string>
+    <layout class="QVBoxLayout" name="addressbookLayout" stretch="0,0,0">
+     <property name="spacing">
+      <number>12</number>
      </property>
-     <property name="textFormat">
-      <enum>Qt::PlainText</enum>
+     <property name="leftMargin">
+      <number>12</number>
      </property>
-     <property name="wordWrap">
-      <bool>true</bool>
+     <property name="topMargin">
+      <number>12</number>
      </property>
-    </widget>
-   </item>
-   <item>
-    <widget class="QTableView" name="tableView">
-     <property name="contextMenuPolicy">
-      <enum>Qt::CustomContextMenu</enum>
+     <property name="rightMargin">
+      <number>12</number>
      </property>
-     <property name="toolTip">
-      <string>Double-click to edit address or label</string>
+     <property name="bottomMargin">
+      <number>12</number>
      </property>
-     <property name="tabKeyNavigation">
-      <bool>false</bool>
-     </property>
-     <property name="alternatingRowColors">
-      <bool>true</bool>
-     </property>
-     <property name="selectionMode">
-      <enum>QAbstractItemView::SingleSelection</enum>
-     </property>
-     <property name="selectionBehavior">
-      <enum>QAbstractItemView::SelectRows</enum>
-     </property>
-     <property name="sortingEnabled">
-      <bool>true</bool>
-     </property>
-     <attribute name="verticalHeaderVisible">
-      <bool>false</bool>
-     </attribute>
-    </widget>
-   </item>
-   <item>
-    <layout class="QHBoxLayout" name="horizontalLayout">
      <item>
-      <widget class="QPushButton" name="newAddressButton">
+      <widget class="QLabel" name="labelExplanation">
+       <property name="styleSheet">
+        <string notr="true">QLabel {
+	color: #FFFFFF;
+}</string>
+       </property>
+       <property name="text">
+        <string>These are your Bitstar addresses for receiving payments. You may want to give a different one to each sender so you can keep track of who is paying you.</string>
+       </property>
+       <property name="textFormat">
+        <enum>Qt::PlainText</enum>
+       </property>
+       <property name="wordWrap">
+        <bool>true</bool>
+       </property>
+      </widget>
+     </item>
+     <item>
+      <widget class="QTableView" name="tableView">
+       <property name="contextMenuPolicy">
+        <enum>Qt::CustomContextMenu</enum>
+       </property>
        <property name="toolTip">
-        <string>Create a new address</string>
+        <string>Double-click to edit address or label</string>
        </property>
-       <property name="text">
-        <string>&amp;New Address</string>
+       <property name="styleSheet">
+        <string notr="true"/>
        </property>
-       <property name="icon">
-        <iconset resource="../bitcoin.qrc">
-         <normaloff>:/icons/add</normaloff>:/icons/add</iconset>
+       <property name="tabKeyNavigation">
+        <bool>false</bool>
        </property>
+       <property name="alternatingRowColors">
+        <bool>true</bool>
+       </property>
+       <property name="selectionMode">
+        <enum>QAbstractItemView::SingleSelection</enum>
+       </property>
+       <property name="selectionBehavior">
+        <enum>QAbstractItemView::SelectRows</enum>
+       </property>
+       <property name="sortingEnabled">
+        <bool>true</bool>
+       </property>
+       <attribute name="verticalHeaderVisible">
+        <bool>false</bool>
+       </attribute>
       </widget>
      </item>
      <item>
-      <widget class="QPushButton" name="copyToClipboard">
-       <property name="toolTip">
-        <string>Copy the currently selected address to the system clipboard</string>
+      <layout class="QHBoxLayout" name="horizontalLayout">
+       <property name="spacing">
+        <number>-1</number>
        </property>
-       <property name="text">
-        <string>&amp;Copy Address</string>
-       </property>
-       <property name="icon">
-        <iconset resource="../bitcoin.qrc">
-         <normaloff>:/icons/editcopy</normaloff>:/icons/editcopy</iconset>
-       </property>
-      </widget>
-     </item>
-     <item>
-      <widget class="QPushButton" name="showQRCode">
-       <property name="text">
-        <string>Show &amp;QR Code</string>
-       </property>
-       <property name="icon">
-        <iconset resource="../bitcoin.qrc">
-         <normaloff>:/icons/qrcode</normaloff>:/icons/qrcode</iconset>
-       </property>
-      </widget>
-     </item>
-     <item>
-      <widget class="QPushButton" name="signMessage">
-       <property name="toolTip">
-        <string>Sign a message to prove you own a Bitstar address</string>
-       </property>
-       <property name="text">
-        <string>Sign &amp;Message</string>
-       </property>
-       <property name="icon">
-        <iconset resource="../bitcoin.qrc">
-         <normaloff>:/icons/edit</normaloff>:/icons/edit</iconset>
-       </property>
-      </widget>
-     </item>
-     <item>
-      <widget class="QPushButton" name="verifyMessage">
-       <property name="toolTip">
-        <string>Verify a message to ensure it was signed with a specified Bitstar address</string>
-       </property>
-       <property name="text">
-        <string>&amp;Verify Message</string>
-       </property>
-       <property name="icon">
-        <iconset resource="../bitcoin.qrc">
-         <normaloff>:/icons/transaction_0</normaloff>:/icons/transaction_0</iconset>
-       </property>
-      </widget>
-     </item>
-     <item>
-      <widget class="QPushButton" name="deleteButton">
-       <property name="toolTip">
-        <string>Delete the currently selected address from the list</string>
-       </property>
-       <property name="text">
-        <string>&amp;Delete</string>
-       </property>
-       <property name="icon">
-        <iconset resource="../bitcoin.qrc">
-         <normaloff>:/icons/remove</normaloff>:/icons/remove</iconset>
-       </property>
-      </widget>
-     </item>
-     <item>
-      <spacer name="horizontalSpacer">
-       <property name="orientation">
-        <enum>Qt::Horizontal</enum>
-       </property>
-       <property name="sizeHint" stdset="0">
-        <size>
-         <width>40</width>
-         <height>20</height>
-        </size>
-       </property>
-      </spacer>
-     </item>
-     <item>
-      <widget class="QDialogButtonBox" name="buttonBox">
-       <property name="sizePolicy">
-        <sizepolicy hsizetype="Maximum" vsizetype="Fixed">
-         <horstretch>0</horstretch>
-         <verstretch>0</verstretch>
-        </sizepolicy>
-       </property>
-       <property name="standardButtons">
-        <set>QDialogButtonBox::Ok</set>
-       </property>
-      </widget>
+       <item>
+        <widget class="QPushButton" name="newAddressButton">
+         <property name="minimumSize">
+          <size>
+           <width>120</width>
+           <height>30</height>
+          </size>
+         </property>
+         <property name="toolTip">
+          <string>Create a new address</string>
+         </property>
+         <property name="styleSheet">
+          <string notr="true">QPushButton {
+	border: none;
+	background: #C4C4C4;
+	border-bottom: 4px solid #6B6969;
+	color: #111111;
+	font-weight: bold;
+	margin-right: 12px;
+	padding-top: 4px;
+}
+QPushButton:hover,
+QPushButton:pressed,
+QPushButton:selected,
+QPushButton:checked {
+    background: #60CAE8;
+    border-bottom: 4px solid #1AA0C5;
+}
+QPushButton:disabled {
+	color: #6B6969;
+}</string>
+         </property>
+         <property name="text">
+          <string>&amp;New Address</string>
+         </property>
+        </widget>
+       </item>
+       <item>
+        <widget class="QPushButton" name="copyToClipboard">
+         <property name="minimumSize">
+          <size>
+           <width>120</width>
+           <height>30</height>
+          </size>
+         </property>
+         <property name="toolTip">
+          <string>Copy the currently selected address to the system clipboard</string>
+         </property>
+         <property name="styleSheet">
+          <string notr="true">QPushButton {
+	border: none;
+	background: #C4C4C4;
+	border-bottom: 4px solid #6B6969;
+	color: #111111;
+	font-weight: bold;
+	margin-right: 12px;
+	padding-top: 4px;
+}
+QPushButton:hover,
+QPushButton:pressed,
+QPushButton:selected,
+QPushButton:checked {
+    background: #60CAE8;
+    border-bottom: 4px solid #1AA0C5;
+}
+QPushButton:disabled {
+	color: #6B6969;
+}</string>
+         </property>
+         <property name="text">
+          <string>&amp;Copy Address</string>
+         </property>
+        </widget>
+       </item>
+       <item>
+        <widget class="QPushButton" name="showQRCode">
+         <property name="minimumSize">
+          <size>
+           <width>120</width>
+           <height>30</height>
+          </size>
+         </property>
+         <property name="styleSheet">
+          <string notr="true">QPushButton {
+	border: none;
+	background: #C4C4C4;
+	border-bottom: 4px solid #6B6969;
+	color: #111111;
+	font-weight: bold;
+	margin-right: 12px;
+	padding-top: 4px;
+}
+QPushButton:hover,
+QPushButton:pressed,
+QPushButton:selected,
+QPushButton:checked {
+    background: #60CAE8;
+    border-bottom: 4px solid #1AA0C5;
+}
+QPushButton:disabled {
+	color: #6B6969;
+}</string>
+         </property>
+         <property name="text">
+          <string>Show &amp;QR Code</string>
+         </property>
+        </widget>
+       </item>
+       <item>
+        <widget class="QPushButton" name="signMessage">
+         <property name="enabled">
+          <bool>true</bool>
+         </property>
+         <property name="minimumSize">
+          <size>
+           <width>120</width>
+           <height>30</height>
+          </size>
+         </property>
+         <property name="toolTip">
+          <string>Sign a message to prove you own a Bitstar address</string>
+         </property>
+         <property name="styleSheet">
+          <string notr="true">QPushButton {
+	border: none;
+	background: #C4C4C4;
+	border-bottom: 4px solid #6B6969;
+	color: #111111;
+	font-weight: bold;
+	margin-right: 12px;
+	padding-top: 4px;
+}
+QPushButton:hover,
+QPushButton:pressed,
+QPushButton:selected,
+QPushButton:checked {
+    background: #60CAE8;
+    border-bottom: 4px solid #1AA0C5;
+}
+QPushButton:disabled {
+	color: #6B6969;
+}</string>
+         </property>
+         <property name="text">
+          <string>Sign &amp;Message</string>
+         </property>
+        </widget>
+       </item>
+       <item>
+        <widget class="QPushButton" name="verifyMessage">
+         <property name="enabled">
+          <bool>true</bool>
+         </property>
+         <property name="minimumSize">
+          <size>
+           <width>120</width>
+           <height>30</height>
+          </size>
+         </property>
+         <property name="toolTip">
+          <string>Verify a message to ensure it was signed with a specified Bitstar address</string>
+         </property>
+         <property name="styleSheet">
+          <string notr="true">QPushButton {
+	border: none;
+	background: #C4C4C4;
+	border-bottom: 4px solid #6B6969;
+	color: #111111;
+	font-weight: bold;
+	margin-right: 12px;
+	padding-top: 4px;
+}
+QPushButton:hover,
+QPushButton:pressed,
+QPushButton:selected,
+QPushButton:checked {
+    background: #60CAE8;
+    border-bottom: 4px solid #1AA0C5;
+}
+QPushButton:disabled {
+	color: #6B6969;
+}</string>
+         </property>
+         <property name="text">
+          <string>&amp;Verify Message</string>
+         </property>
+         <property name="default">
+          <bool>false</bool>
+         </property>
+         <property name="flat">
+          <bool>false</bool>
+         </property>
+        </widget>
+       </item>
+       <item>
+        <widget class="QPushButton" name="deleteButton">
+         <property name="minimumSize">
+          <size>
+           <width>120</width>
+           <height>30</height>
+          </size>
+         </property>
+         <property name="toolTip">
+          <string>Delete the currently selected address from the list</string>
+         </property>
+         <property name="styleSheet">
+          <string notr="true">QPushButton {
+	border: none;
+	background: #C4C4C4;
+	border-bottom: 4px solid #6B6969;
+	color: #111111;
+	font-weight: bold;
+	margin-right: 12px;
+	padding-top: 4px;
+}
+QPushButton:hover,
+QPushButton:pressed,
+QPushButton:selected,
+QPushButton:checked {
+    background: #60CAE8;
+    border-bottom: 4px solid #1AA0C5;
+}
+QPushButton:disabled {
+	color: #6B6969;
+}</string>
+         </property>
+         <property name="text">
+          <string>&amp;Delete</string>
+         </property>
+        </widget>
+       </item>
+       <item>
+        <spacer name="horizontalSpacer">
+         <property name="orientation">
+          <enum>Qt::Horizontal</enum>
+         </property>
+         <property name="sizeHint" stdset="0">
+          <size>
+           <width>40</width>
+           <height>20</height>
+          </size>
+         </property>
+        </spacer>
+       </item>
+       <item>
+        <widget class="QDialogButtonBox" name="buttonBox">
+         <property name="sizePolicy">
+          <sizepolicy hsizetype="Maximum" vsizetype="Fixed">
+           <horstretch>0</horstretch>
+           <verstretch>0</verstretch>
+          </sizepolicy>
+         </property>
+         <property name="minimumSize">
+          <size>
+           <width>120</width>
+           <height>30</height>
+          </size>
+         </property>
+         <property name="styleSheet">
+          <string notr="true">QDialogButtonBox {
+	border: none;
+}
+QDialogButtonBox QPushButton {
+	border: none;
+    background: #60CAE8;
+    border-bottom: 4px solid #1AA0C5;
+	color: #111111;
+	font-weight: bold;
+	padding-top: 4px;
+}
+QDialogButtonBox QPushButton:hover,
+QDialogButtonBox QPushButton:pressed,
+QDialogButtonBox QPushButton:selected,
+QDialogButtonBox QPushButton:checked {
+	background: #BED431;
+	border-bottom: 4px solid #788B02;
+}
+
+
+</string>
+         </property>
+         <property name="standardButtons">
+          <set>QDialogButtonBox::Ok</set>
+         </property>
+        </widget>
+       </item>
+      </layout>
      </item>
     </layout>
    </item>
   </layout>
  </widget>
- <resources>
-  <include location="../bitcoin.qrc"/>
- </resources>
+ <resources/>
  <connections/>
 </ui>

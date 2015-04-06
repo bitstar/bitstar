@@ -13,6 +13,12 @@
   <property name="windowTitle">
    <string>Form</string>
   </property>
+  <property name="styleSheet">
+   <string notr="true">QFrame {
+	background: #4C4C4C;
+	color: #FFFFFF;
+}</string>
+  </property>
   <property name="frameShape">
    <enum>QFrame::StyledPanel</enum>
   </property>
@@ -25,6 +31,13 @@
    </property>
    <item row="5" column="0">
     <widget class="QLabel" name="label">
+     <property name="styleSheet">
+      <string notr="true">QLabel {
+	color: #FFFFFF;
+	font-weight: bold;
+	font-size: 12px;
+}</string>
+     </property>
      <property name="text">
       <string>A&amp;mount:</string>
      </property>
@@ -38,6 +51,13 @@
    </item>
    <item row="3" column="0">
     <widget class="QLabel" name="label_2">
+     <property name="styleSheet">
+      <string notr="true">QLabel {
+	color: #FFFFFF;
+	font-weight: bold;
+	font-size: 12px;
+}</string>
+     </property>
      <property name="text">
       <string>Pay &amp;To:</string>
      </property>
@@ -50,7 +70,15 @@
     </widget>
    </item>
    <item row="5" column="1">
-    <widget class="BitcoinAmountField" name="payAmount"/>
+    <widget class="BitcoinAmountField" name="payAmount">
+     <property name="styleSheet">
+      <string notr="true">BitcoinAmountField {
+	color: #FFFFFF;
+	font-weight: bold;
+	font-size: 12px;
+}</string>
+     </property>
+    </widget>
    </item>
    <item row="4" column="1">
     <layout class="QHBoxLayout" name="horizontalLayout_2">
@@ -65,12 +93,26 @@
        <property name="toolTip">
         <string>Enter a label for this address to add it to your address book</string>
        </property>
+       <property name="styleSheet">
+        <string notr="true">QValidatedLineEdit {
+	color: #FFFFFF;
+	font-weight: bold;
+	font-size: 12px;
+}</string>
+       </property>
       </widget>
      </item>
     </layout>
    </item>
    <item row="4" column="0">
     <widget class="QLabel" name="label_4">
+     <property name="styleSheet">
+      <string notr="true">QLabel {
+	color: #FFFFFF;
+	font-weight: bold;
+	font-size: 12px;
+}</string>
+     </property>
      <property name="text">
       <string>&amp;Label:</string>
      </property>
@@ -85,12 +127,24 @@
    <item row="3" column="1">
     <layout class="QHBoxLayout" name="payToLayout">
      <property name="spacing">
-      <number>0</number>
+      <number>-1</number>
      </property>
      <item>
       <widget class="QValidatedLineEdit" name="payTo">
+       <property name="font">
+        <font>
+         <kerning>true</kerning>
+        </font>
+       </property>
        <property name="toolTip">
         <string>The address to send the payment to  (e.g. 4Zo1ga6xuKuQ7JV7M9rGDoxdbYwV5zgQJ5)</string>
+       </property>
+       <property name="styleSheet">
+        <string notr="true">QValidatedLineEdit {
+	color: #FFFFFF;
+	font-weight: bold;
+	font-size: 12px;
+}</string>
        </property>
        <property name="maxLength">
         <number>34</number>
@@ -101,6 +155,16 @@
       <widget class="QToolButton" name="addressBookButton">
        <property name="toolTip">
         <string>Choose address from address book</string>
+       </property>
+       <property name="styleSheet">
+        <string notr="true">QToolButton {
+	border: none;
+	background: transparent;
+	height: 26px;
+	color: #BED431;
+	font-weight: bold;
+}
+</string>
        </property>
        <property name="text">
         <string/>
@@ -119,6 +183,16 @@
        <property name="toolTip">
         <string>Paste address from clipboard</string>
        </property>
+       <property name="styleSheet">
+        <string notr="true">QToolButton {
+	border: none;
+	background: transparent;
+	height: 26px;
+	color: #BED431;
+	font-weight: bold;
+}
+</string>
+       </property>
        <property name="text">
         <string/>
        </property>
@@ -135,6 +209,16 @@
       <widget class="QToolButton" name="deleteButton">
        <property name="toolTip">
         <string>Remove this recipient</string>
+       </property>
+       <property name="styleSheet">
+        <string notr="true">QToolButton {
+	border: none;
+	background: transparent;
+	height: 26px;
+	color: #BED431;
+	font-weight: bold;
+}
+</string>
        </property>
        <property name="text">
         <string/>

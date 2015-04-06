@@ -46,6 +46,7 @@
 #include <QPushButton>
 #include <QLocale>
 #include <QMessageBox>
+#include <QMimeData>
 #include <QProgressBar>
 #include <QStackedWidget>
 #include <QDateTime>
@@ -56,7 +57,13 @@
 #include <QDragEnterEvent>
 #include <QUrl>
 #include <QStyle>
+#include <QToolButton>
+#include <QVariant>
 
+#include <QFile>
+#include <QString>
+#include <QFontDatabase>
+#include <QDebug>
 #include <iostream>
 
 extern CWallet *pwalletMain;
@@ -81,9 +88,19 @@ BitcoinGUI::BitcoinGUI(QWidget *parent):
     qApp->setWindowIcon(QIcon(":icons/bitcoin"));
     setWindowIcon(QIcon(":icons/bitcoin"));
 #else
-    setUnifiedTitleAndToolBarOnMac(true);
+    setUnifiedTitleAndToolBarOnMac(false);
     QApplication::setAttribute(Qt::AA_DontShowIconsInMenus);
 #endif
+
+    // Load font
+    QFontDatabase::addApplicationFont(":/res/fonts/bebas.ttf");
+
+    // Load stylesheet
+    QFile file(":/qss/stylesheet");
+    file.open( QFile::ReadOnly );
+    QString styleSheet = QLatin1String( file.readAll() );
+    qApp->setStyleSheet( styleSheet ); 
+
     // Accept D&D of URIs
     setAcceptDrops(true);
 
@@ -165,9 +182,11 @@ BitcoinGUI::BitcoinGUI(QWidget *parent):
     // Progress bar and label for blocks download
     progressBarLabel = new QLabel();
     progressBarLabel->setVisible(false);
+    progressBarLabel->setObjectName("progressBarLabel");
     progressBar = new QProgressBar();
     progressBar->setAlignment(Qt::AlignCenter);
     progressBar->setVisible(false);
+    progressBar->setObjectName("progressBar");
 
     // Override style sheet for progress bar for styles that have a segmented progress bar,
     // as they make the text unreadable (workaround for issue #1071)
@@ -181,8 +200,9 @@ BitcoinGUI::BitcoinGUI(QWidget *parent):
     statusBar()->addWidget(progressBarLabel);
     statusBar()->addWidget(progressBar);
     statusBar()->addPermanentWidget(frameBlocks);
+    statusBar()->setObjectName("statusBar");
 
-    syncIconMovie = new QMovie(":/movies/update_spinner", "mng", this);
+    syncIconMovie = new QMovie(":/movies/update_spinner", "gif", this);
 	// this->setStyleSheet("background-color: #ceffee;");
 
     // Clicking on a transaction on the overview page simply sends you to transaction history page
@@ -216,31 +236,37 @@ void BitcoinGUI::createActions()
 {
     QActionGroup *tabGroup = new QActionGroup(this);
 
-    overviewAction = new QAction(QIcon(":/icons/overview"), tr("&Overview"), this);
+//    overviewAction = new QAction(QIcon(":/icons/overview"), tr("&Overview"), this);
+    overviewAction = new QAction(tr("&Overview"), this);
     overviewAction->setToolTip(tr("Show general overview of wallet"));
     overviewAction->setCheckable(true);
     overviewAction->setShortcut(QKeySequence(Qt::ALT + Qt::Key_1));
+//    overviewAction->setObjectName("overviewMenu");
     tabGroup->addAction(overviewAction);
 
-    sendCoinsAction = new QAction(QIcon(":/icons/send"), tr("&Send coins"), this);
+//    sendCoinsAction = new QAction(QIcon(":/icons/send"), tr("&Send coins"), this);
+    sendCoinsAction = new QAction(tr("&Send coins"), this);
     sendCoinsAction->setToolTip(tr("Send coins to a Bitstar address"));
     sendCoinsAction->setCheckable(true);
     sendCoinsAction->setShortcut(QKeySequence(Qt::ALT + Qt::Key_2));
     tabGroup->addAction(sendCoinsAction);
 
-    receiveCoinsAction = new QAction(QIcon(":/icons/receiving_addresses"), tr("&Receive coins"), this);
+//    receiveCoinsAction = new QAction(QIcon(":/icons/receiving_addresses"), tr("&Receive coins"), this);
+    receiveCoinsAction = new QAction(tr("&Receive coins"), this);
     receiveCoinsAction->setToolTip(tr("Show the list of addresses for receiving payments"));
     receiveCoinsAction->setCheckable(true);
     receiveCoinsAction->setShortcut(QKeySequence(Qt::ALT + Qt::Key_3));
     tabGroup->addAction(receiveCoinsAction);
 
-    historyAction = new QAction(QIcon(":/icons/history"), tr("&Transactions"), this);
+//    historyAction = new QAction(QIcon(":/icons/history"), tr("&Transactions"), this);
+    historyAction = new QAction(tr("&Transactions"), this);
     historyAction->setToolTip(tr("Browse transaction history"));
     historyAction->setCheckable(true);
     historyAction->setShortcut(QKeySequence(Qt::ALT + Qt::Key_4));
     tabGroup->addAction(historyAction);
 
-    addressBookAction = new QAction(QIcon(":/icons/address-book"), tr("&Address Book"), this);
+//    addressBookAction = new QAction(QIcon(":/icons/address-book"), tr("&Address Book"), this);
+    addressBookAction = new QAction(tr("&Address Book"), this);
     addressBookAction->setToolTip(tr("Edit the list of stored addresses and labels"));
     addressBookAction->setCheckable(true);
     addressBookAction->setShortcut(QKeySequence(Qt::ALT + Qt::Key_5));
@@ -256,6 +282,10 @@ void BitcoinGUI::createActions()
     connect(historyAction, SIGNAL(triggered()), this, SLOT(gotoHistoryPage()));
     connect(addressBookAction, SIGNAL(triggered()), this, SLOT(showNormalIfMinimized()));
     connect(addressBookAction, SIGNAL(triggered()), this, SLOT(gotoAddressBookPage()));
+
+    bitstarAction = new QAction(QIcon(":/icons/bitcoin"), tr("&Bitstar Coin"), this);
+    bitstarAction->setToolTip(tr("Bitstar Coin"));
+    bitstarAction->setObjectName("bitstarMenu");
 
     quitAction = new QAction(QIcon(":/icons/quit"), tr("E&xit"), this);
     quitAction->setToolTip(tr("Quit application"));
@@ -278,7 +308,7 @@ void BitcoinGUI::createActions()
     backupWalletAction->setToolTip(tr("Backup wallet to another location"));
     changePassphraseAction = new QAction(QIcon(":/icons/key"), tr("&Change Passphrase..."), this);
     changePassphraseAction->setToolTip(tr("Change the passphrase used for wallet encryption"));
-    lockWalletToggleAction = new QAction(this);
+    lockWalletToggleAction = new QAction(tr("&Unlock Wallet..."), this);
     signMessageAction = new QAction(QIcon(":/icons/edit"), tr("Sign &message..."), this);
     verifyMessageAction = new QAction(QIcon(":/icons/transaction_0"), tr("&Verify message..."), this);
 
@@ -338,18 +368,70 @@ void BitcoinGUI::createMenuBar()
 
 void BitcoinGUI::createToolBars()
 {
-    QToolBar *toolbar = addToolBar(tr("Tabs toolbar"));
-    toolbar->setToolButtonStyle(Qt::ToolButtonTextBesideIcon);
-    toolbar->addAction(overviewAction);
-    toolbar->addAction(sendCoinsAction);
-    toolbar->addAction(receiveCoinsAction);
-    toolbar->addAction(historyAction);
-    toolbar->addAction(addressBookAction);
+    QToolBar *homeToolBar = new QToolBar(this);
+    QToolBar *menuToolBar = new QToolBar(this);
+    
+    homeToolBar->setObjectName("homeToolBar");
+    menuToolBar->setObjectName("menuToolBar");
+    
+//    homeToolBar->setFixedWidth(300);
+//    homeToolBar->setSizePolicy(QSizePolicy::Expanding, QSizePolicy::Expanding);
+    menuToolBar->setSizePolicy(QSizePolicy::Expanding, QSizePolicy::Expanding);
 
-    QToolBar *toolbar2 = addToolBar(tr("Actions toolbar"));
-    toolbar2->setToolButtonStyle(Qt::ToolButtonTextBesideIcon);
-    toolbar2->addAction(lockWalletToggleAction);
-    toolbar2->addAction(exportAction);
+    homeToolBar->setMovable(false);
+    menuToolBar->setMovable(false);
+
+    homeToolBar->setFloatable(false);
+    menuToolBar->setFloatable(false);
+    
+    homeToolBar->setContextMenuPolicy(Qt::PreventContextMenu);
+    menuToolBar->setContextMenuPolicy(Qt::PreventContextMenu);
+        
+    homeToolBar->setToolButtonStyle(Qt::ToolButtonTextBesideIcon);
+    menuToolBar->setToolButtonStyle(Qt::ToolButtonTextOnly);
+
+    homeToolBar->addAction(bitstarAction);
+    homeToolBar->setIconSize(QSize(24, 24));
+    
+    menuToolBar->layout()->setSpacing(0);
+
+    // Add a spacer, so all menuToolBar items are right aligned...
+    QWidget* spacer = new QWidget();
+    spacer->setSizePolicy(QSizePolicy::Expanding, QSizePolicy::Expanding);
+    menuToolBar->addWidget(spacer);
+
+    QToolButton *overviewButton = new QToolButton;
+    overviewButton->setDefaultAction(overviewAction);
+    overviewButton->setObjectName("overviewMenu");
+    menuToolBar->addWidget(overviewButton);
+
+    QToolButton *sendCoinsButton = new QToolButton;
+    sendCoinsButton->setDefaultAction(sendCoinsAction);
+    sendCoinsButton->setObjectName("sendcoinsMenu");
+    menuToolBar->addWidget(sendCoinsButton);
+
+    QToolButton *receiveCoinsButton = new QToolButton;
+    receiveCoinsButton->setDefaultAction(receiveCoinsAction);
+    receiveCoinsButton->setObjectName("receivecoinsMenu");
+    menuToolBar->addWidget(receiveCoinsButton);
+
+    QToolButton *historyButton = new QToolButton;
+    historyButton->setDefaultAction(historyAction);
+    historyButton->setObjectName("historyMenu");
+    menuToolBar->addWidget(historyButton);
+
+    QToolButton *addressBookButton = new QToolButton;
+    addressBookButton->setDefaultAction(addressBookAction);
+    addressBookButton->setObjectName("addressBookMenu");
+    menuToolBar->addWidget(addressBookButton);
+
+    lockToggleButton = new QToolButton;
+    lockToggleButton->setDefaultAction(lockWalletToggleAction);
+    lockToggleButton->setObjectName("lockToggleMenu");
+    lockToggleAction = menuToolBar->addWidget(lockToggleButton);
+
+    addToolBar(homeToolBar);
+    addToolBar(menuToolBar);
 }
 
 void BitcoinGUI::setClientModel(ClientModel *clientModel)
@@ -404,7 +486,7 @@ void BitcoinGUI::setWalletModel(WalletModel *walletModel)
         // Put transaction list in tabs
         transactionView->setModel(walletModel);
 
-        overviewPage->setModel(walletModel);
+        overviewPage->setModel(walletModel, clientModel);
         addressBookPage->setModel(walletModel->getAddressTableModel());
         receiveCoinsPage->setModel(walletModel->getAddressTableModel());
         sendCoinsPage->setModel(walletModel);
@@ -818,7 +900,10 @@ void BitcoinGUI::setEncryptionStatus(int status)
         encryptWalletAction->setChecked(false);
         encryptWalletAction->setEnabled(true);
         changePassphraseAction->setEnabled(false);
-        lockWalletToggleAction->setVisible(false);
+        lockWalletToggleAction->setEnabled(false);
+        lockToggleButton->hide();
+        lockToggleAction->setVisible(false);
+        lockToggleAction->setEnabled(false);
         break;
     case WalletModel::Unlocked:
         labelEncryptionIcon->show();
@@ -827,10 +912,13 @@ void BitcoinGUI::setEncryptionStatus(int status)
         encryptWalletAction->setChecked(true);
         encryptWalletAction->setEnabled(false); // TODO: decrypt currently not supported
         changePassphraseAction->setEnabled(true);
-        lockWalletToggleAction->setVisible(true);
-        lockWalletToggleAction->setIcon(QIcon(":/icons/lock_closed"));
+        lockWalletToggleAction->setEnabled(true);
         lockWalletToggleAction->setText(tr("&Lock Wallet"));
         lockWalletToggleAction->setToolTip(tr("Lock wallet"));
+        lockWalletToggleAction->setCheckable(true);
+        lockToggleButton->hide();
+        lockToggleAction->setVisible(true);
+        lockToggleAction->setEnabled(true);
         break;
     case WalletModel::Locked:
         labelEncryptionIcon->show();
@@ -839,10 +927,13 @@ void BitcoinGUI::setEncryptionStatus(int status)
         encryptWalletAction->setChecked(true);
         encryptWalletAction->setEnabled(false); // TODO: decrypt currently not supported
         changePassphraseAction->setEnabled(true);
-        lockWalletToggleAction->setVisible(true);
-        lockWalletToggleAction->setIcon(QIcon(":/icons/lock_open"));
+        lockWalletToggleAction->setEnabled(true);
         lockWalletToggleAction->setText(tr("&Unlock Wallet..."));
         lockWalletToggleAction->setToolTip(tr("Unlock wallet"));
+        lockWalletToggleAction->setCheckable(true);
+        lockToggleButton->hide();
+        lockToggleAction->setVisible(true);
+        lockToggleAction->setEnabled(true);
         break;
     }
 }
@@ -985,9 +1076,5 @@ void BitcoinGUI::updateMintingIcon()
 
 void BitcoinGUI::updateMintingWeights()
 {
-
-    /* say */ return; /* we dont need you anymore, lazy so will not remove the call, cleanup later */
-
-    /* getting me some inspiration: http://3.bp.blogspot.com/-FHN87s7zQSg/USY6mz3oLDI/AAAAAAABMIY/wai3Qaxe4fg/s400/Animated+GIF+0159a.gif in order to continue hehe*/
-
+    return;
 }

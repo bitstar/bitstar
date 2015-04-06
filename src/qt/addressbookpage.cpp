@@ -79,8 +79,10 @@ AddressBookPage::AddressBookPage(Mode mode, Tabs tab, QWidget *parent) :
         contextMenu->addAction(deleteAction);
     contextMenu->addSeparator();
     contextMenu->addAction(showQRCodeAction);
-    if(tab == ReceivingTab)
+    if(tab == ReceivingTab){
         contextMenu->addAction(signMessageAction);
+
+    }
     else if(tab == SendingTab)
         contextMenu->addAction(verifyMessageAction);
 
@@ -113,29 +115,39 @@ void AddressBookPage::setModel(AddressTableModel *model)
     proxyModel = new QSortFilterProxyModel(this);
     proxyModel->setSourceModel(model);
     proxyModel->setDynamicSortFilter(true);
+
     proxyModel->setSortCaseSensitivity(Qt::CaseInsensitive);
     proxyModel->setFilterCaseSensitivity(Qt::CaseInsensitive);
     switch(tab)
     {
     case ReceivingTab:
         // Receive filter
+
         proxyModel->setFilterRole(AddressTableModel::TypeRole);
         proxyModel->setFilterFixedString(AddressTableModel::Receive);
+        ui->tableView->setModel(proxyModel);
+        // show the balance column on receiving tab
+        ui->tableView->showColumn(AddressTableModel::Balance);
         break;
     case SendingTab:
         // Send filter
         proxyModel->setFilterRole(AddressTableModel::TypeRole);
         proxyModel->setFilterFixedString(AddressTableModel::Send);
+
+        ui->tableView->setModel(proxyModel);
+        // do not show the balance column on sending tab
+        ui->tableView->hideColumn(AddressTableModel::Balance);
+
         break;
+    default:
+        ui->tableView->setModel(proxyModel);
     }
-    ui->tableView->setModel(proxyModel);
+
     ui->tableView->sortByColumn(0, Qt::AscendingOrder);
 
     // Set column widths
-    ui->tableView->horizontalHeader()->resizeSection(
-            AddressTableModel::Address, 320);
-    ui->tableView->horizontalHeader()->setResizeMode(
-            AddressTableModel::Label, QHeaderView::Stretch);
+    ui->tableView->horizontalHeader()->resizeSection(AddressTableModel::Address, 320);
+    ui->tableView->horizontalHeader()->setResizeMode(AddressTableModel::Label, QHeaderView::Stretch);
 
     connect(ui->tableView->selectionModel(), SIGNAL(selectionChanged(QItemSelection,QItemSelection)),
             this, SLOT(selectionChanged()));
