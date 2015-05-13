@@ -5,7 +5,7 @@ ports:
 connection:	62123
 RPC:			63124
 
-New version of wallet is 1.3.0.0, protocol code 60010
+New version of wallet is 1.4.0.0, protocol code 60010
 
 Main changes:
 

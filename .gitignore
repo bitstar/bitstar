@@ -1,0 +1,17 @@
+.DS_Store
+build
+debug
+dist
+release
+*.app
+*.dmg
+Makefile
+Makefile.Debug
+Makefile.Release
+object_script.bitstar-qt.Debug
+object_script.bitstar-qt.Release
+qrc_bitcoin.cpp
+src/qt/locale/*.qm
+._.DS_Store
+.qmake.stash
+bitstar-qt.pro.user
