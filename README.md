@@ -1,3 +1,4 @@
+## DEPRECATED, UNSUPPORTED V1 WALLET!!
 
 Bitstar - BITS
 
